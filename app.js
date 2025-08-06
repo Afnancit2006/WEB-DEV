@@ -18,12 +18,21 @@ function onSuccess(position){
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
 
-    console.log('Your Location:');
-    console.log('Latitude: ${latitude}');
-    console.log('Longitute: ${longitude}');
+    console.log('Your Location: Latitude: ${latitude}, Longitude: ${longitude}');
+    displayMap(latitude, longitude);
 }
 
 function onError(error){
     console.error(`Error getting location: ${error.message}`);
     alert(`Error: ${error.message}. Please enable location services in your browser.`);
+}
+
+function displayMap(lat,lan){
+    const map = L.map('map').setView([lat,lan],15);
+     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    const marker = L.marker([lat, lon]).addTo(map);
+    marker.bindPopup("<b>You are here!</b>").openPopup();
 }
