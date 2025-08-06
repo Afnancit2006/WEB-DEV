@@ -13,37 +13,45 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
 
 </head>
-<body class="bg-light">
+<body>
 
+    <!-- Loading Spinner -->
+    <div id="loader-wrapper">
+        <div class="spinner"></div>
+        <p>Finding your location...</p>
+    </div>
+
+    <!-- Main Header -->
     <header class="container text-center my-4">
-        <h1 class="display-4">🕌 Masjid Finder Lite</h1>
-        <p class="lead">Find nearby mosques and their prayer times.</p>
+        <h1 class="display-4 text-white">🕌 Masjid Finder Lite</h1>
+        <p class="lead text-white-50">Find nearby mosques and their prayer times.</p>
     </header>
 
-    <main class="container">
+    <!-- Main Content Area -->
+    <main class="container" id="main-content" style="visibility: hidden;">
         <div class="row">
             <!-- Map Column -->
             <div class="col-lg-8 mb-4">
-                <div class="card shadow-sm">
+                <div class="card shadow-lg border-0">
                     <div id="map"></div>
                 </div>
             </div>
 
             <!-- Prayer Times Column -->
             <div class="col-lg-4">
-                <div class="card shadow-sm">
+                <div class="card shadow-lg border-0">
                     <div class="card-header text-center bg-primary text-white">
                         <h5 class="mb-0">Prayer Times</h5>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <!-- NEW: Added IDs to each span -->
-                        <li class="list-group-item d-flex justify-content-between align-items-center">Fajr <span id="fajr-time" class="badge bg-primary rounded-pill">--:--</span></li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">Dhuhr <span id="dhuhr-time" class="badge bg-primary rounded-pill">--:--</span></li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">Asr <span id="asr-time" class="badge bg-primary rounded-pill">--:--</span></li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">Maghrib <span id="maghrib-time" class="badge bg-primary rounded-pill">--:--</span></li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">Isha <span id="isha-time" class="badge bg-primary rounded-pill">--:--</span></li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">Fajr <span id="fajr-time" class="badge bg-primary rounded-pill fs-6">--:--</span></li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">Dhuhr <span id="dhuhr-time" class="badge bg-primary rounded-pill fs-6">--:--</span></li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">Asr <span id="asr-time" class="badge bg-primary rounded-pill fs-6">--:--</span></li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">Maghrib <span id="maghrib-time" class="badge bg-primary rounded-pill fs-6">--:--</span></li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">Isha <span id="isha-time" class="badge bg-primary rounded-pill fs-6">--:--</span></li>
                     </ul>
                 </div>
             </div>

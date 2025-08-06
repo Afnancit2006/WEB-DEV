@@ -1,3 +1,16 @@
+// Register Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(registration => {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      })
+      .catch(err => {
+        console.log('ServiceWorker registration failed: ', err);
+      });
+  });
+}
+
 // This function runs when the entire page is loaded
 window.addEventListener('DOMContentLoaded', () => {
     console.log("Welcome to Masjid Finder Lite!");
