@@ -1,16 +1,3 @@
-// Register Service Worker
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then(registration => {
-        console.log('ServiceWorker registration successful with scope: ', registration.scope);
-      })
-      .catch(err => {
-        console.log('ServiceWorker registration failed: ', err);
-      });
-  });
-}
-
 // This function runs when the entire page is loaded
 window.addEventListener('DOMContentLoaded', () => {
     console.log("Welcome to Masjid Finder Lite!");
@@ -20,8 +7,8 @@ window.addEventListener('DOMContentLoaded', () => {
 // Global variables
 let map;
 let userLocation;
-let userMarker; // To store the user's marker
-let watchId;    // To store the ID of the location watcher
+let userMarker;
+let watchId;
 let routeLine;
 
 // --- Custom Icons ---
@@ -30,13 +17,14 @@ const userIcon = L.divIcon({
     className: '', iconSize: [32, 32], iconAnchor: [16, 32],
 });
 
-// CHANGED: Using the emoji for the mosque icon
+// REVERTED: Switched back to the reliable orange SVG icon for mosques
 const mosqueIcon = L.divIcon({
-    html: `<div style="font-size: 28px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">🕌</div>`,
-    className: '', // No default class
+    html: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e67e22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36A5.5 5.5 0 0 1 12 15.5 5.5 5.5 0 0 1 6.5 10c0-1.7.78-3.23 2-4.24A9.01 9.01 0 0 0 12 3z"></path><path d="M16 2v4"></path><path d="M18 6L14 6"></path></svg>`,
+    className: '',
     iconSize: [32, 32],
-    iconAnchor: [16, 32], // Anchor at the bottom-center point
+    iconAnchor: [16, 16],
 });
+
 
 function getUserLocation() {
     document.getElementById('loader-wrapper').style.display = 'flex';
