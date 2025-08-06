@@ -20,6 +20,7 @@ function onSuccess(position){
 
     console.log('Your Location: Latitude: ${latitude}, Longitude: ${longitude}');
     displayMap(latitude, longitude);
+    findNearbyMosques(latitude, longitude);
 }
 
 function onError(error){
@@ -35,4 +36,38 @@ function displayMap(lat,lan){
     }).addTo(map);
     const marker = L.marker([lat, lon]).addTo(map);
     marker.bindPopup("<b>You are here!</b>").openPopup();
+}
+
+async function findNearbyMosques(lat ,lan) {
+    const radius = 5000;
+
+    const query = `
+        [out:json];
+        (
+          node["amenity"="place_of_worship"]["religion"="muslim"](around:${radius},${lat},${lon});
+          way["amenity"="place_of_worship"]["religion"="muslim"](around:${radius},${lat},${lon});
+          relation["amenity"="place_of_worship"]["religion"="muslim"](around:${radius},${lat},${lon});
+        );
+        out center;
+    `;
+
+    const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log("Found mosques:", data.elements);
+        data.elements.forEach(element => {
+            const mosqueLat = element.lat || element.center.lat;
+            const mosqueLon = element.lon || element.center.lon;
+            const mosqueName = element.tags.name || "Unnamed Mosque";
+
+            const mosqueMarker = L.marker([mosqueLat, mosqueLon]).addTo(map);
+            mosqueMarker.bindPopup(`<b>${mosqueName}</b>`);
+        });
+
+    } catch (error) {
+        console.error("Error fetching mosques:", error);
+        alert("Could not fetch nearby mosques. Please try again later.");
+    }
 }
