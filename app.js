@@ -17,14 +17,13 @@ const userIcon = L.divIcon({
     className: '', iconSize: [32, 32], iconAnchor: [16, 32],
 });
 
-// REVERTED: Switched back to the reliable orange SVG icon for mosques
+// FINAL VERSION: Using the emoji icon with stable styling
 const mosqueIcon = L.divIcon({
-    html: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e67e22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36A5.5 5.5 0 0 1 12 15.5 5.5 5.5 0 0 1 6.5 10c0-1.7.78-3.23 2-4.24A9.01 9.01 0 0 0 12 3z"></path><path d="M16 2v4"></path><path d="M18 6L14 6"></path></svg>`,
-    className: '',
+    html: `<div style="font-size: 28px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">🕌</div>`,
+    className: '', // No default class
     iconSize: [32, 32],
-    iconAnchor: [16, 16],
+    iconAnchor: [16, 32], // Anchor the icon at its bottom-center point
 });
-
 
 function getUserLocation() {
     document.getElementById('loader-wrapper').style.display = 'flex';
